@@ -1,0 +1,79 @@
+TTestResources
+v5
+r1
+cCheck dependencies
+cProcessInfoPlistFile /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/Info.plist TestResources/TestResources-Info.plist
+cCopyStringsFile /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/en.lproj/InfoPlist.strings TestResources/en.lproj/InfoPlist.strings
+cCpResource TestFramework/mixi.png build/Debug-iphonesimulator/TestResources.bundle/mixi.png
+cTouch /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle
+
+N/Users/toshiyuki.hasegawa/workspace/TestFramework/TestFramework/mixi.png
+c000000005227EF7500000000000047EC
+t1378348917
+s18412
+
+N/Users/toshiyuki.hasegawa/workspace/TestFramework/TestResources/en.lproj/InfoPlist.strings
+c0000000052284E31000000000000002D
+t1378373169
+s45
+
+N/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle
+t2
+s0
+
+N/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/Info.plist
+t2
+s0
+
+N/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/en.lproj/InfoPlist.strings
+t2
+s0
+
+N/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/mixi.png
+t2
+s0
+
+NTestResources/TestResources-Info.plist
+c0000000052284E300000000000000572
+t1378373168
+s1394
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesc74909725ad9b741^7cb50f725ad9b741^---0#1#0#--18"Check dependencies36"26509ABB-CEF0-4512-A219-E3815C672617-
+
+CCopyStringsFile /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/en.lproj/InfoPlist.strings TestResources/en.lproj/InfoPlist.strings
+s400120434.077029
+e400120434.084265
+r1
+xCopyStringsFile
+x/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/en.lproj/InfoPlist.strings
+xTestResources/en.lproj/InfoPlist.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection45"Copy TestResources/en.lproj/InfoPlist.stringsdb3614725ad9b741^109215725ad9b741^---0#0#0#-19%DVTDocumentLocation2@106"file://localhost/Users/toshiyuki.hasegawa/workspace/TestFramework/TestResources/en.lproj/InfoPlist.strings0000000000000000^432"CopyStringsFile build/Debug-iphonesimulator/TestResources.bundle/en.lproj/InfoPlist.strings TestResources/en.lproj/InfoPlist.strings    cd /Users/toshiyuki.hasegawa/workspace/TestFramework    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/en.lproj -- TestResources/en.lproj/InfoPlist.strings36"E9D2B01D-DC35-4E9C-8285-6EDDE1132F47-
+
+CCpResource TestFramework/mixi.png build/Debug-iphonesimulator/TestResources.bundle/mixi.png
+s400120434.077035
+e400120434.083801
+r1
+xCpResource
+xTestFramework/mixi.png
+xbuild/Debug-iphonesimulator/TestResources.bundle/mixi.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection62"Copy build/Debug-iphonesimulator/TestResources.bundle/mixi.png273114725ad9b741^3f7415725ad9b741^---0#0#0#-19%DVTDocumentLocation2@123"file://localhost/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/mixi.png000000000080d041^433"CpResource TestFramework/mixi.png build/Debug-iphonesimulator/TestResources.bundle/mixi.png    cd /Users/toshiyuki.hasegawa/workspace/TestFramework    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/toshiyuki.hasegawa/workspace/TestFramework/TestFramework/mixi.png /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle36"5F75858C-9FAE-419C-9058-7407DFF5223D-
+
+CProcessInfoPlistFile /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/Info.plist TestResources/TestResources-Info.plist
+s400120434.063572
+e400120434.068475
+r1
+xProcessInfoPlistFile
+x/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/Info.plist
+xTestResources/TestResources-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection46"Process TestResources/TestResources-Info.plist43c510725ad9b741^1e8711725ad9b741^---0#0#0#-19%DVTDocumentLocation2@104"file://localhost/Users/toshiyuki.hasegawa/workspace/TestFramework/TestResources/TestResources-Info.plist0000000000000000^420"ProcessInfoPlistFile build/Debug-iphonesimulator/TestResources.bundle/Info.plist TestResources/TestResources-Info.plist    cd /Users/toshiyuki.hasegawa/workspace/TestFramework    builtin-infoPlistUtility TestResources/TestResources-Info.plist -expandbuildsettings -format binary -platform iphonesimulator -o /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle/Info.plist36"115D1C3B-2625-438C-9125-1A1854ED9C51-
+
+CTouch /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle
+s400120434.092440
+e400120434.100822
+r1
+xTouch
+x/Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"Touch /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundleebfc17725ad9b741^35cf19725ad9b741^---0#0#0#--233"Touch build/Debug-iphonesimulator/TestResources.bundle    cd /Users/toshiyuki.hasegawa/workspace/TestFramework    /usr/bin/touch -c /Users/toshiyuki.hasegawa/workspace/TestFramework/build/Debug-iphonesimulator/TestResources.bundle36"5A5077EB-CE76-43EB-B87E-1777CA08B4FD-
+

@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ja-JP">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section data-markdown
+                         data-separator="\n---\n$"
+                         data-vertical="\n--\n">
+                    <script type="text/template">
+iOS開発 from coudec
+
+---
+
+## はじめに
+
+本日は、coudecのiOS開発際に知った
+
+Framework/Static Library の作成について
+
+お話しようと思います。
+
+ぜひMacの方はお手元のMacでやってみて下さいmm
+
+<br />
+※ 注 : 正しいかは不明です。
+
+
+<br />
+iOSアプリの開発方法は、下記のを見て勉強してみて下さい
+※ URL : https://github.com/mixi-inc/iOSTraining/wiki
+
+---
+
+## アジェンダ
+
+* Static Library/Frameworkの作成
+* Frameworkにリソースを含める
+* reveal.js について
+
+---
+
+## SDKを作るには
+
+* Static Library
+* Framework
+
+
+---
+
+## Static Library
+
+* .a というファイルに処理をまとめたもの。
+* リソースファイルとかは含められない。
+
+--
+
+## Framework
+* 以下のファイルを1つにまとめたディレクトリ
+ * ライブラリ
+ * nibファイル
+ * imageファイル、
+ * ローカライズファイル
+ * ヘッダファイル
+ * ドキュメント
+
+---
+
+## 作成方法
+* コンソールに HELLO!!! してみます
+* 以下の手順でよしなに作ります。
+ * [File] -> [New] -> [project] -> [iOS] -> [Framework & Library] -> [Cocoa Touch Static Library] を選択
+ * よしなに名前を選択して作成
+
+--
+
+## 作成方法
+![](img/img1.png)
+
+--
+
+## 作成方法
+以下を修正する
+
+* [対象のターゲット] -> [Build Phase] -> [Copy Files]
+
+![](img/img14.png)
+
+
+--
+
+## 作成方法
+NSLogするメソッドを作成
+
+``` TestFramework.h
+#import <Foundation/Foundation.h>
+
+@interface TestFramework : NSObject
+
+- (void) hello ;
+
+@end
+
+```
+
+``` TestFramework.m
+
+#import "TestFramework.h"
+
+@implementation TestFramework
+
+- (void) hello {
+    NSLog(@" HELLO !!! ");
+}
+
+@end
+
+```
+--
+
+# run!!!!!!
+
+--
+
+# ...
+
+--
+
+※ 実際には、static libraryが出来てます。(libTestFramework.aって言うヤツです。)
+  
+  これ読ませる事で、static libraryとして使う事ができます。
+
+---
+
+## 表示用 app 作成
+* 右側の列で、のあたりでクリック -> [New Project] で [SampleApplication]を作成します。
+
+--
+
+## 表示用 app 作成
+ * 出来るとこんな感じになります。 ![](img/img2.png)
+
+--
+
+## static library の読み込み
+* SampleApplication を選択 TARGETS -> [SampleApplication] -> [Bulid Phases] を選択
+* [Link Binary With Libraries] の 「+」 に
+  先ほどの 「libTestFramework.a」があるので、Addします。
+
+--
+
+## ライブラリを読み込む
+viewController.mに以下の処理を書きます。
+
+```viewController.m
+#import <TestFramework/TestFramework.h>
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [[[TestFramework alloc] init] hello];
+}
+
+
+```
+
+--
+
+## 実行!!!
+実行すると、コンソールに HELLO !!!とでます。
+![](img/img6.png)
+
+
+---
+
+## Frameworkにするには・・・
+
+ざっくりいうとコンパイルした結果の以下を、
+
+ディレクトリにまとめる作業が必要です。
+
+* Static Library
+* リソースファイル
+* etc...
+
+--
+
+### targetの作成
+* TestFramework を押して、下にある、[+ Add Target ]
+* [Other] -> [Aggregate]を選択
+![](img/img7.png)
+
+--
+
+### targetの作成
+* [作成したTarget] -> [Build Phases] -> [Add Build Phase] -> [Add Run Script]をします。 
+![](img/img4.png)
+
+--
+
+### targetの作成
+Run Script に以下をはっつけます。
+
+``` RunScript
+# Environment Variables
+FRAMEWORK_NAME=${PROJECT_NAME}
+FRAMEWORK_VERSION=A
+FRAMEWORK_VERSION_NUMBER=1.0
+FRAMEWORK_BUILD_PATH="${SRCROOT}/build/${CONFIGURATION}-framework"
+FRAMEWORK_DIR="${FRAMEWORK_BUILD_PATH}/${FRAMEWORK_NAME}.framework"
+FRAMEWORK_PACKAGE_NAME="${FRAMEWORK_NAME}.${FRAMEWORK_VERSION_NUMBER}.zip"
+
+# Clean directories
+rm -rf "${FRAMEWORK_BUILD_PATH}"
+
+# Build simulator and device binaries.
+xcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphonesimulator${IPHONEOS_DEPLOYMENT_TARGET} -target "${PROJECT_NAME}" -configuration ${CONFIGURATION} clean build
+xcodebuild -project ${PROJECT_NAME}.xcodeproj -sdk iphoneos${IPHONEOS_DEPLOYMENT_TARGET} -target "${PROJECT_NAME}" -configuration ${CONFIGURATION} clean build
+
+# create framework directories.
+mkdir -p ${FRAMEWORK_DIR}
+mkdir -p ${FRAMEWORK_DIR}/Resources
+mkdir -p ${FRAMEWORK_DIR}/Headers
+
+# create the universal library
+lipo ${SRCROOT}/build/${CONFIGURATION}-iphoneos/lib${FRAMEWORK_NAME}.a ${SRCROOT}/build/${CONFIGURATION}-iphonesimulator/lib${FRAMEWORK_NAME}.a -create -output "${FRAMEWORK_DIR}/${FRAMEWORK_NAME}"
+
+# copy files
+cp ${SRCROOT}/build/${CONFIGURATION}-iphoneos/Headers/*.h ${FRAMEWORK_DIR}/Headers/
+# cp -r ${SRCROOT}/build/${CONFIGURATION}-iphoneos/*.bundle ${FRAMEWORK_DIR}/Resources/
+
+# zip (配布用に TestFramework.framework ディレクトリをZIP圧縮するだけなので、配布しないなら以下はコメントアウトしてもよい)
+cd ${FRAMEWORK_BUILD_PATH}
+zip -ry ${FRAMEWORK_PACKAGE_NAME} $(basename $FRAMEWORK_DIR)
+
+```
+
+--
+
+### targetをbuild
+* 作成したtarget -> iOSDevice　でbuild
+![](img/img5.png)
+
+
+---
+
+### frameworkを読み込ませる
+* [-] から libTestFramwork.aを削除する
+* Sample Applicationに戻り [Link Binary With Libraries] の 「+」から [Add Other]から
+  作成したディレクトリを指定
+* 再度SamppleApplicatonをビルドすると同じように HELLO がでると思います。
+
+
+---
+
+# Resources
+
+--
+
+# Resourceの追加
+* 画像を入れる
+* リソースTargetを作成する
+* コンパイルする
+* コンパイルしたものをFrameworkにいれる
+
+--
+
+## 画像いれる
+* 取得 : http://apps.mixi.co.jp/public/img/mixi.png
+* D&DでFramework側のプロジェクトに追加
+* copy item ...にチェックを入れる
+
+--
+
+## Targetの追加
+* [Add Target] -> [OS X] -> [Framework & Library] -> [Bundle] を選択
+![](img/img9.png)
+
+--
+
+## Targetに画像を追加
+* Targetを選択
+* [Copy Bundle Resources] -> [+] -> 対象画像を選択
+![](img/img11.png)
+
+--
+
+## TargetのBuild Settings
+* Targetを選択
+* [Build Settings] -> [Base SDK] -> [iOS 6.1]に変更
+![](img/img12.png)
+
+--
+
+## Compile時にbundleを追加
+* Target Dependencies, Copy Files に登録
+![](img/img17.png)
+
+
+--
+
+## Build
+* Buildする
+* TestResources.bundleが出来たら成功
+* [Products] -> [TestResources.bundle] -> [Opne wiht External Editor]を選択
+* ll して mixi.pngが入ってたらOKです。
+![](img/img13.png)
+
+--
+
+## bundleをFramewokへ
+* 先ほどの、Run Scriptのコメントアウトを削除
+
+```
+# cp -r ${SRCROOT}/build/${CONFIGURATION}-iphoneos/*.bundle ${FRAMEWORK_DIR}/Resources/
+```
+
+--
+
+## run で Framework作成
+
+--
+
+## 表示用 App にbundle追加
+![](img/img15.png)
+
+--
+
+## bundleの画像を表示
+
+* viewController.m viewDidLoad に以下を追加
+
+```viewController.m
+
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *path = [bundle pathForResource:@"TestResources.bundle/mixi" ofType:@"png"];
+    UIImage *img = [UIImage imageWithContentsOfFile:path];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+    [self.view addSubview:imageView];
+
+```
+
+--
+
+## 実行
+![](img/img16.png)
+
+---
+
+# おしまい
+
+                    </script>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
+
