@@ -12,6 +12,7 @@
 
 - (void) hello {
     NSLog(@" HELLO !!! ");
+    NSLog(@" HELLO !!! ");
 }
 
 @end
