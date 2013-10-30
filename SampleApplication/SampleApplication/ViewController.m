@@ -25,7 +25,6 @@
     UIImage *img = [UIImage imageWithContentsOfFile:path];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
     [self.view addSubview:imageView];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning
